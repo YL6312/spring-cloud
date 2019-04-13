@@ -4,10 +4,10 @@ import net.xdclass.order_service.service.ProductClient;
 import org.springframework.stereotype.Component;
 
 /**
- * 针对商品服务，错降级处理
+ * 针对商品服务，  做降级处理
  */
 @Component
-public class ProductClientFallback implements ProductClient {
+public class ProductClientFallback implements ProductClient{
 
     @Override
     public String findById(int id) {

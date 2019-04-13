@@ -48,6 +48,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product findById(int id) {
         logger.info("service findById");
+//        if(id==1){
+//            throw new RuntimeException("我故意报错了");
+//        }
         return daoMap.get(id);
     }
 }

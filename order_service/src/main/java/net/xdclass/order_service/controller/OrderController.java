@@ -33,9 +33,6 @@ public class OrderController {
     @HystrixCommand(fallbackMethod = "saveOrderFail")
     public Object save(@RequestParam("user_id")int userId, @RequestParam("product_id") int productId, HttpServletRequest request){
 
-        String token = request.getHeader("token");
-        String cookie = request.getHeader("cookie");
-
         Map<String, Object> data = new HashMap<>();
         data.put("code", 0);
         data.put("data", productOrderService.save(userId, productId));
@@ -53,13 +50,13 @@ public class OrderController {
         String saveOrderKye = "save-order";
 
         String sendValue = redisTemplate.opsForValue().get(saveOrderKye);
+
         final String ip = request.getRemoteAddr();
         new Thread( ()->{
             if (StringUtils.isBlank(sendValue)) {
                 System.out.println("紧急短信，用户下单失败，请离开查找原因,ip地址是="+ip);
                 //发送一个http请求，调用短信服务 TODO
                 redisTemplate.opsForValue().set(saveOrderKye, "save-order-fail", 20, TimeUnit.SECONDS);
-
             }else{
                 System.out.println("已经发送过短信，20秒内不重复发送");
             }

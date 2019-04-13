@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.UUID;
 
@@ -25,9 +26,9 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     @Override
     public ProductOrder save(int userId, int productId) {
 
-        if(userId == 1){
-            return null;
-        }
+//        if(userId == 1){
+//            return null;
+//        }
         //调用订单服务
         String response = productClient.findById(productId);
 
@@ -48,8 +49,5 @@ public class ProductOrderServiceImpl implements ProductOrderService {
         productOrder.setPrice(Integer.parseInt(jsonNode.get("price").toString()));
         return productOrder;
     }
-
-
-
 
 }
